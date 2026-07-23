@@ -1,665 +1,857 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jayesh SS | Creative 3D Designer</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio — 3D & Graphic Designer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ["Space Grotesk", "sans-serif"],
+            body: ["Inter", "sans-serif"],
+          },
+          colors: {
+            bg: "#0E0F11",
+            bgSec: "#15171B",
+            accent: "#D6FF4F",
+            border: "#23252B",
+            textMain: "#F5F5F5",
+            textSec: "#A1A1A6",
+            textWeak: "#52525B",
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    ::selection { background: #D6FF4F; color: #0E0F11; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { background: #0E0F11; }
+    body { font-family: 'Inter', sans-serif; background: #0E0F11; color: #F5F5F5; overflow-x: hidden; }
 
-    <meta name="description"
-        content="Official portfolio of Jayesh SS - Creative 3D Designer, Product Visualizer, Motion Designer & Brand Visualizer.">
+    @keyframes heroScroll {
+      0% { transform: translate3d(-50%, 0, 0); }
+      100% { transform: translate3d(0, 0, 0); }
+    }
+    .hero-scroll { animation: heroScroll 45s linear infinite; }
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    @keyframes heroImgShift {
+      0%, 100% { transform: scale(1.15) translate3d(-2%, 0, 0); }
+      50% { transform: scale(1.15) translate3d(2%, 0, 0); }
+    }
+    .hero-img-shift { animation: heroImgShift 20s ease-in-out infinite; }
 
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; opacity: 0; }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+    .delay-5 { animation-delay: 0.5s; }
+    .delay-6 { animation-delay: 0.6s; }
 
-    <link rel="stylesheet" href="style.css">
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+    }
+    .float { animation: float 6s ease-in-out infinite; }
+    .float-delay { animation: float 6s ease-in-out 2s infinite; }
 
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(214,255,79,0.15); }
+      50% { box-shadow: 0 0 40px rgba(214,255,79,0.3); }
+    }
+    .pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+
+    .card-hover:hover .card-img { transform: scale(1.1); }
+    .card-hover:hover .card-overlay { opacity: 1; }
+    .card-hover:hover .card-text { transform: translateY(0); opacity: 1; }
+    .card-hover:hover .card-tag { transform: translateY(0); opacity: 1; }
+
+    .card-img { transition: transform 700ms ease; }
+    .card-overlay { opacity: 0; transition: opacity 500ms ease; }
+    .card-text { transform: translateY(16px); opacity: 0; transition: all 500ms ease; }
+    .card-tag { transform: translateY(8px); opacity: 0; transition: all 500ms ease 100ms; }
+
+    .skill-bar { transition: width 1.5s ease-out; }
+
+    .filter-btn.active { background: #D6FF4F; color: #0E0F11; }
+
+    .nav-link { position: relative; }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: #D6FF4F;
+      transition: width 300ms ease;
+    }
+    .nav-link:hover::after { width: 100%; }
+
+    .toast {
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 400ms ease;
+    }
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0E0F11; }
+    ::-webkit-scrollbar-thumb { background: #23252B; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #D6FF4F; }
+
+    .mobile-menu {
+      transform: translateX(100%);
+      transition: transform 400ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .mobile-menu.open { transform: translateX(0); }
+  </style>
 </head>
-
 <body>
 
-    <!--==========================
-            PRELOADER
-    ===========================-->
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="toast fixed bottom-6 right-6 z-[100] bg-bgSec border border-border rounded-2xl px-6 py-4 flex items-center gap-3 shadow-2xl">
+    <span class="iconify text-accent text-xl" data-icon="mdi:check-circle"></span>
+    <span id="toastMsg" class="text-sm font-body text-textMain">Message sent!</span>
+  </div>
 
-    <div id="preloader">
-        <div class="loader-logo">JD</div>
+  <!-- NAVIGATION -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 pt-4 md:pt-6 px-3 md:px-4 transition-all duration-300">
+    <div class="max-w-[1600px] mx-auto bg-bgSec/80 backdrop-blur-md rounded-full shadow-2xl shadow-black/50 border border-border">
+      <div class="flex items-center justify-between pt-3 pb-3 pl-6 pr-3 md:pl-8 md:pr-6">
+        <!-- Logo -->
+        <a href="#hero" class="font-heading font-semibold text-lg tracking-tight text-textMain">
+          PORTFOLIO<span class="text-accent">.</span>
+        </a>
+        <!-- Desktop Links -->
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#about" class="nav-link text-sm font-medium text-textSec hover:text-accent transition-colors">About</a>
+          <a href="#services" class="nav-link text-sm font-medium text-textSec hover:text-accent transition-colors">Services</a>
+          <a href="#work" class="nav-link text-sm font-medium text-textSec hover:text-accent transition-colors">Work</a>
+          <a href="#skills" class="nav-link text-sm font-medium text-textSec hover:text-accent transition-colors">Skills</a>
+          <a href="#contact" class="nav-link text-sm font-medium text-textSec hover:text-accent transition-colors">Contact</a>
+        </div>
+        <!-- CTA + Hamburger -->
+        <div class="flex items-center gap-3">
+          <a href="#contact" class="hidden md:inline-flex items-center gap-2 bg-accent text-bg text-xs font-bold uppercase tracking-widest px-5 py-2.5 rounded-full hover:bg-textMain transition-colors">
+            Hire Me
+            <span class="iconify text-sm" data-icon="mdi:arrow-top-right"></span>
+          </a>
+          <button id="menuToggle" class="md:hidden w-10 h-10 rounded-full border border-border flex items-center justify-center text-textMain hover:text-accent hover:border-accent transition-all">
+            <span class="iconify text-xl" data-icon="mdi:menu" id="menuIcon"></span>
+          </button>
+        </div>
+      </div>
     </div>
-
-    <!--==========================
-            NAVBAR
-    ===========================-->
-
-    <header>
-
-        <div class="logo">
-            <img src="assets/logo.png" alt="JD Logo">
-        </div>
-
-        <nav>
-
-            <a href="#home">Home</a>
-
-            <a href="#about">About</a>
-
-            <a href="#portfolio">Portfolio</a>
-
-            <a href="#videos">Videos</a>
-
-            <a href="#contact">Contact</a>
-
-        </nav>
-
-        <div class="menu-btn">
-            ☰
-        </div>
-
-    </header>
-
-    <!--==========================
-            HERO
-    ===========================-->
-
-    <section class="hero" id="home">
-
-        <video autoplay muted loop playsinline>
-
-            <source src="assets/videos/hero.mp4" type="video/mp4">
-
-        </video>
-
-        <div class="overlay"></div>
-
-        <div class="hero-content">
-
-            <img src="assets/logo.png" class="hero-logo" alt="JD Logo">
-
-            <p class="small-title">
-                Creative Portfolio
-            </p>
-
-            <h1>
-
-                Jayesh SS
-
-            </h1>
-
-            <h2>
-
-                Creative 3D Designer
-                <br>
-                &
-                <br>
-                Visual Storyteller
-
-            </h2>
-
-            <p>
-
-                Creating premium product visuals,
-                cinematic animations,
-                branding experiences
-                and AI generated content.
-
-            </p>
-
-            <div class="hero-buttons">
-
-                <a href="#portfolio" class="btn">
-
-                    Explore Portfolio
-
-                </a>
-
-                <a href="assets/resume.pdf"
-                    class="btn btn-outline"
-                    target="_blank">
-
-                    Download Resume
-
-                </a>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <!--==========================
-        FEATURED PROJECT
-    ===========================-->
-
-    <section class="featured">
-
-        <div class="container">
-
-            <span class="section-tag">
-
-                FEATURED PROJECT
-
-            </span>
-
-            <h2>
-
-                Product Visualization
-                That Builds Brands
-
-            </h2>
-
-            <p>
-
-                High quality product rendering,
-                animation,
-                branding,
-                packaging
-                and AI content
-                created for modern businesses.
-
-            </p>
-
-        </div>
-
-    </section>
-
-    <!--==========================
-        PORTFOLIO START
-    ===========================-->
-
-  <!--==========================
-        PORTFOLIO START
-===========================-->
-
-<section class="portfolio" id="portfolio">
-
-    <div class="container">
-
-        <div class="section-title">
-
-            <span>MY WORK</span>
-
-            <h2>Selected Projects</h2>
-
-        </div>
-
-        <div class="portfolio-grid">
-
-            <!-- Branding -->
-            <a href="branding.html" class="card">
-
-                <img src="assets/images/Clarus.jpg" alt="Branding">
-
-                <div class="card-content">
-
-                    <h3>Branding</h3>
-
-                    <p>Premium CGI Product Visualization</p>
-
-                </div>
-
-            </a>
-
-            <!-- Product Render -->
-            <a href="render.html" class="card">
-
-                <img src="assets/images/Brand1.png" alt="Product Render">
-
-                <div class="card-content">
-
-                    <h3>Product Render</h3>
-
-                    <p>High Quality Product Rendering</p>
-
-                </div>
-
-            </a>
-
-            <!-- Packaging -->
-            <a href="packaging.html" class="card">
-
-                <img src="assets/images/Brand2.png" alt="Packaging Design">
-
-                <div class="card-content">
-
-                    <h3>Packaging Design</h3>
-
-                    <p>Creative Packaging Design</p>
-
-                </div>
-
-            </a>
-
-            <!-- Product Poster -->
-            <a href="poster.html" class="card">
-
-                <img src="assets/images/project4.jpg" alt="Product Poster">
-
-                <div class="card-content">
-
-                    <h3>Product Poster</h3>
-
-                    <p>Advertising & Marketing Design</p>
-
-                </div>
-
-            </a>
-
-            <!-- Product Animation -->
-            <a href="animation.html" class="card">
-
-                <img src="assets/images/project5.jpg" alt="Product Animation">
-
-                <div class="card-content">
-
-                    <h3>Product Animation</h3>
-
-                    <p>Motion Graphics & Product Film</p>
-
-                </div>
-
-            </a>
-
-            <!-- AI Generated Visual -->
-            <a href="ai.html" class="card">
-
-                <img src="assets/images/project6.jpg" alt="AI Generated Visual">
-
-                <div class="card-content">
-
-                    <h3>AI Generated Visual</h3>
-
-                    <p>AI Cinematic Artwork</p>
-
-                </div>
-
-            </a>
-
-        </div>
-
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div id="mobileMenu" class="mobile-menu fixed inset-0 z-[60] bg-bg/95 backdrop-blur-xl flex flex-col">
+    <div class="flex justify-end p-4">
+      <button id="menuClose" class="w-12 h-12 rounded-full border border-border flex items-center justify-center text-textMain hover:text-accent hover:border-accent transition-all">
+        <span class="iconify text-2xl" data-icon="mdi:close"></span>
+      </button>
     </div>
+    <div class="flex-1 flex flex-col items-center justify-center gap-8">
+      <a href="#about" class="mobile-link font-heading text-3xl font-medium text-textMain hover:text-accent transition-colors">About</a>
+      <a href="#services" class="mobile-link font-heading text-3xl font-medium text-textMain hover:text-accent transition-colors">Services</a>
+      <a href="#work" class="mobile-link font-heading text-3xl font-medium text-textMain hover:text-accent transition-colors">Work</a>
+      <a href="#skills" class="mobile-link font-heading text-3xl font-medium text-textMain hover:text-accent transition-colors">Skills</a>
+      <a href="#contact" class="mobile-link font-heading text-3xl font-medium text-textMain hover:text-accent transition-colors">Contact</a>
+      <a href="#contact" class="mt-4 bg-accent text-bg text-sm font-bold uppercase tracking-widest px-8 py-4 rounded-full hover:bg-textMain transition-colors">
+        Hire Me
+      </a>
+    </div>
+  </div>
 
-</section>
+  <!-- HERO SECTION -->
+  <section id="hero" class="relative h-[50vh] sm:h-[60vh] md:h-[75vh] md:min-h-[600px] overflow-hidden flex items-end">
+    <!-- Scrolling Background Images -->
+    <div class="absolute inset-0 hero-scroll flex" style="width: 300vw;">
+      <div class="relative w-screen md:w-[60vw] h-full flex-shrink-0 border-r border-border overflow-hidden">
+        <img src="https://picsum.photos/seed/3ddesign-hero1/1200/800.jpg" class="w-full h-full object-cover opacity-80 hero-img-shift" alt="" />
+      </div>
+      <div class="relative w-screen md:w-[60vw] h-full flex-shrink-0 border-r border-border overflow-hidden">
+        <img src="https://picsum.photos/seed/graphic-hero2/1200/800.jpg" class="w-full h-full object-cover opacity-80 hero-img-shift" style="animation-delay: -7s;" alt="" />
+      </div>
+      <div class="relative w-screen md:w-[60vw] h-full flex-shrink-0 border-r border-border overflow-hidden">
+        <img src="https://picsum.photos/seed/3drender-hero3/1200/800.jpg" class="w-full h-full object-cover opacity-80 hero-img-shift" style="animation-delay: -14s;" alt="" />
+      </div>
+      <div class="relative w-screen md:w-[60vw] h-full flex-shrink-0 border-r border-border overflow-hidden">
+        <img src="https://picsum.photos/seed/3ddesign-hero1/1200/800.jpg" class="w-full h-full object-cover opacity-80 hero-img-shift" alt="" />
+      </div>
+      <div class="relative w-screen md:w-[60vw] h-full flex-shrink-0 border-r border-border overflow-hidden">
+        <img src="https://picsum.photos/seed/graphic-hero2/1200/800.jpg" class="w-full h-full object-cover opacity-80 hero-img-shift" style="animation-delay: -7s;" alt="" />
+      </div>
+      <div class="relative w-screen md:w-[60vw] h-full flex-shrink-0 overflow-hidden">
+        <img src="https://picsum.photos/seed/3drender-hero3/1200/800.jpg" class="w-full h-full object-cover opacity-80 hero-img-shift" style="animation-delay: -14s;" alt="" />
+      </div>
+    </div>
+    <!-- Gradient Overlays -->
+    <div class="absolute inset-0 bg-gradient-to-t from-bg via-bg/60 to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-bg/80 to-transparent"></div>
+    <!-- Hero Content -->
+    <div class="relative z-10 max-w-[1600px] mx-auto w-full px-4 md:px-8 pb-8 md:pb-12">
+      <div class="flex items-center gap-3 mb-4 fade-in-up delay-1">
+        <span class="w-2 h-2 rounded-full bg-accent pulse-glow"></span>
+        <span class="text-[10px] font-mono font-medium uppercase tracking-widest text-accent">Available for freelance</span>
+      </div>
+      <h1 class="font-heading font-medium tracking-tight leading-[0.85] text-[14vw] md:text-[11vw] text-textMain fade-in-up delay-2">
+        3D &<br/>Graphic<br/>Designer<span class="text-accent">.</span>
+      </h1>
+      <div class="mt-6 flex flex-wrap items-center gap-4 fade-in-up delay-3">
+        <a href="#work" class="inline-flex items-center gap-2 bg-accent text-bg text-xs font-bold uppercase tracking-widest px-6 py-3 rounded-full hover:bg-textMain transition-colors">
+          View Work
+          <span class="iconify" data-icon="mdi:arrow-down"></span>
+        </a>
+        <a href="#about" class="inline-flex items-center gap-2 border border-border text-textMain text-xs font-bold uppercase tracking-widest px-6 py-3 rounded-full hover:border-accent hover:text-accent transition-all">
+          About Me
+        </a>
+      </div>
+    </div>
+  </section>
 
-<!--==========================
-        VIDEOS
-===========================-->
-
-<section class="videos" id="videos">
-
-    <!--==========================
-            VIDEOS
-    ===========================-->
-
-    <section class="videos" id="videos">
-
-        <div class="container">
-
-            <div class="section-title">
-
-                <span>
-
-                    SHOWREEL
-
-                </span>
-
-                <h2>
-
-                    Product Animation Collection
-
-                </h2>
-
+  <!-- ABOUT SECTION -->
+  <section id="about" class="py-20 md:py-32">
+    <div class="max-w-[1550px] mx-auto px-4 md:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+        <!-- Left: Image -->
+        <div class="lg:col-span-5 scroll-reveal">
+          <div class="relative rounded-[2rem] overflow-hidden border border-border aspect-[3/4]">
+            <img src="https://picsum.photos/seed/designer-portrait/800/1067.jpg" class="w-full h-full object-cover" alt="Designer portrait" />
+            <div class="absolute inset-0 bg-gradient-to-t from-bg/60 to-transparent"></div>
+            <!-- Floating Stats Card -->
+            <div class="absolute bottom-6 left-6 right-6 bg-bgSec/90 backdrop-blur-xl rounded-2xl p-5 border border-border float">
+              <div class="grid grid-cols-3 gap-4 text-center">
+                <div>
+                  <div class="font-heading text-2xl font-medium text-accent">5+</div>
+                  <div class="text-[10px] uppercase tracking-widest text-textSec mt-1">Years Exp</div>
+                </div>
+                <div>
+                  <div class="font-heading text-2xl font-medium text-accent">120+</div>
+                  <div class="text-[10px] uppercase tracking-widest text-textSec mt-1">Projects</div>
+                </div>
+                <div>
+                  <div class="font-heading text-2xl font-medium text-accent">50+</div>
+                  <div class="text-[10px] uppercase tracking-widest text-textSec mt-1">Clients</div>
+                </div>
+              </div>
             </div>
-
-            <div class="video-grid">
-
-                <div class="video-card">
-
-                    <video
-                        src="assets/videos/Mascot_touches_finger_warmly_202607181731.mp4"
-                        muted
-                        loop
-                        controls
-                        poster="assets/images/thumb1.jpg">
-                    </video>
-
-                    <h3>iBELL Product Animation</h3>
-
-                </div>
-
-                <div class="video-card">
-
-                    <video
-                        src="assets/videos/video2.mp4"
-                        muted
-                        loop
-                        controls
-                        poster="assets/images/thumb2.jpg">
-                    </video>
-
-                    <h3>3D Product Showcase</h3>
-
-                </div>
-
-                <div class="video-card">
-
-                    <video
-                        src="assets/videos/video3.mp4"
-                        muted
-                        loop
-                        controls
-                        poster="assets/images/thumb3.jpg">
-                    </video>
-
-                    <h3>Commercial Advertisement</h3>
-
-                </div>
-
-            </div>
-
+          </div>
         </div>
-
-    </section>
-
-    <!--==========================
-            ABOUT
-    ===========================-->
-
-    <section class="about" id="about">
-
-        <div class="container">
-
-            <div class="about-text">
-
-                <span>
-
-                    ABOUT ME
-
-                </span>
-
-                <h2>
-
-                    I Design Visual Experiences
-                    That Make Products Stand Out.
-
-                </h2>
-
-                <p>
-
-                    I'm Jayesh SS, a Creative 3D Designer specializing in
-                    product visualization, CGI rendering,
-                    motion graphics, branding,
-                    packaging design and AI-generated visuals.
-
-                </p>
-
-                <p>
-
-                    My goal is to transform ideas into premium
-                    visual experiences that help brands communicate,
-                    market and sell their products more effectively.
-
-                </p>
-
-            </div>
-
-            <div class="about-image">
-
-                <img src="assets/images/profile.jpg"
-                     alt="Jayesh SS">
-
-            </div>
-
+        <!-- Right: Content -->
+        <div class="lg:col-span-7 flex flex-col justify-center scroll-reveal">
+          <span class="text-[10px] font-mono font-medium uppercase tracking-widest text-accent mb-4">About Me</span>
+          <h2 class="font-heading text-3xl md:text-5xl font-medium tracking-tight leading-tight text-textMain mb-6">
+            Crafting visual experiences that leave a lasting impression
+          </h2>
+          <p class="text-textSec text-sm md:text-base leading-relaxed mb-6 max-w-2xl">
+            I'm a passionate 3D and graphic designer with over 5 years of experience creating visually stunning designs for brands, products, and digital experiences. I blend technical precision with creative vision to deliver work that stands out.
+          </p>
+          <p class="text-textSec text-sm md:text-base leading-relaxed mb-8 max-w-2xl">
+            From photorealistic 3D renders and product visualizations to brand identities and marketing materials — I bring ideas to life with attention to every pixel and polygon. My goal is simple: make your vision look incredible.
+          </p>
+          <div class="flex flex-wrap gap-3 mb-8">
+            <span class="px-4 py-2 rounded-full bg-bgSec border border-border text-xs font-medium text-textSec">Blender</span>
+            <span class="px-4 py-2 rounded-full bg-bgSec border border-border text-xs font-medium text-textSec">Cinema 4D</span>
+            <span class="px-4 py-2 rounded-full bg-bgSec border border-border text-xs font-medium text-textSec">Photoshop</span>
+            <span class="px-4 py-2 rounded-full bg-bgSec border border-border text-xs font-medium text-textSec">Illustrator</span>
+            <span class="px-4 py-2 rounded-full bg-bgSec border border-border text-xs font-medium text-textSec">After Effects</span>
+            <span class="px-4 py-2 rounded-full bg-bgSec border border-border text-xs font-medium text-textSec">Figma</span>
+          </div>
+          <div class="flex items-center gap-6">
+            <a href="#contact" class="inline-flex items-center gap-2 bg-accent text-bg text-xs font-bold uppercase tracking-widest px-6 py-3 rounded-full hover:bg-textMain transition-colors">
+              Let's Talk
+              <span class="iconify" data-icon="mdi:arrow-top-right"></span>
+            </a>
+            <a href="#" class="inline-flex items-center gap-2 text-textSec text-xs font-bold uppercase tracking-widest hover:text-accent transition-colors">
+              Download CV
+              <span class="iconify" data-icon="mdi:download"></span>
+            </a>
+          </div>
         </div>
+      </div>
+    </div>
+  </section>
 
-    </section>
-        <!--==========================
-            SKILLS
-    ===========================-->
-
-    <section class="skills" id="skills">
-
-        <div class="container">
-
-            <div class="section-title">
-
-                <span>MY SKILLS</span>
-
-                <h2>Tools & Technologies</h2>
-
-            </div>
-
-            <div class="skills-grid">
-
-                <div class="skill-card">
-                    <h3>Blender</h3>
-                </div>
-
-                <div class="skill-card">
-                    <h3>Photoshop</h3>
-                </div>
-
-                <div class="skill-card">
-                    <h3>Illustrator</h3>
-                </div>
-
-                <div class="skill-card">
-                    <h3>After Effects</h3>
-                </div>
-
-                <div class="skill-card">
-                    <h3>Premiere Pro</h3>
-                </div>
-
-                <div class="skill-card">
-                    <h3>Substance Painter</h3>
-                </div>
-
-                <div class="skill-card">
-                    <h3>AI Content Creation</h3>
-                </div>
-
-                <div class="skill-card">
-                    <h3>Product Visualization</h3>
-                </div>
-
-            </div>
-
+  <!-- SERVICES SECTION -->
+  <section id="services" class="py-20 md:py-32 bg-bgSec/50">
+    <div class="max-w-[1550px] mx-auto px-4 md:px-8">
+      <div class="text-center mb-16 scroll-reveal">
+        <span class="text-[10px] font-mono font-medium uppercase tracking-widest text-accent mb-4 block">What I Do</span>
+        <h2 class="font-heading text-3xl md:text-5xl font-medium tracking-tight text-textMain">
+          Services<span class="text-accent">.</span>
+        </h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Service 1 -->
+        <div class="scroll-reveal group bg-bg/80 backdrop-blur-xl rounded-3xl border border-border p-8 hover:border-accent/30 transition-all duration-500">
+          <div class="w-14 h-14 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center mb-6 group-hover:bg-accent/20 transition-colors">
+            <span class="iconify text-accent text-2xl" data-icon="mdi:cube-outline"></span>
+          </div>
+          <h3 class="font-heading text-xl font-medium tracking-tight text-textMain mb-3">3D Modeling</h3>
+          <p class="text-textSec text-sm leading-relaxed">High-quality 3D models for products, characters, environments, and architectural visualization.</p>
         </div>
-
-    </section>
-
-    <!--==========================
-            EXPERIENCE
-    ===========================-->
-
-    <section class="experience">
-
-        <div class="container">
-
-            <div class="section-title">
-
-                <span>EXPERIENCE</span>
-
-                <h2>Professional Journey</h2>
-
-            </div>
-
-            <div class="timeline">
-
-                <div class="timeline-item">
-
-                    <h3>Creative 3D Designer</h3>
-
-                    <h4>iBELL Power Tools</h4>
-
-                    <p>
-                        Creating premium product renders,
-                        product animations,
-                        Amazon listing images,
-                        A+ content,
-                        packaging design,
-                        branding,
-                        promotional videos and AI-generated visuals.
-                    </p>
-
-                </div>
-
-                <div class="timeline-item">
-
-                    <h3>3D Artist</h3>
-
-                    <h4>Previous Experience</h4>
-
-                    <p>
-                        Worked on product visualization,
-                        animation,
-                        modeling,
-                        rendering and commercial design projects.
-                    </p>
-
-                </div>
-
-            </div>
-
+        <!-- Service 2 -->
+        <div class="scroll-reveal group bg-bg/80 backdrop-blur-xl rounded-3xl border border-border p-8 hover:border-accent/30 transition-all duration-500">
+          <div class="w-14 h-14 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center mb-6 group-hover:bg-accent/20 transition-colors">
+            <span class="iconify text-accent text-2xl" data-icon="mdi:palette-outline"></span>
+          </div>
+          <h3 class="font-heading text-xl font-medium tracking-tight text-textMain mb-3">Graphic Design</h3>
+          <p class="text-textSec text-sm leading-relaxed">Brand identities, logos, social media graphics, posters, and print materials that captivate.</p>
         </div>
-
-    </section>
-
-    <!--==========================
-            CONTACT
-    ===========================-->
-
-    <section class="contact" id="contact">
-
-        <div class="container">
-
-            <div class="section-title">
-
-                <span>CONTACT</span>
-
-                <h2>Let's Build Something Amazing</h2>
-
-            </div>
-
-            <div class="contact-box">
-
-                <h3>Available for Freelance & Full-Time Opportunities</h3>
-
-                <p>
-                    Have a project in mind?
-                    Let's discuss how we can create premium visuals
-                    for your brand.
-                </p>
-
-                <div class="contact-buttons">
-
-                    <a href="mailto:your@email.com" class="btn">
-                        Email Me
-                    </a>
-
-                    <a href="https://www.behance.net/"
-                       target="_blank"
-                       class="btn btn-outline">
-                        Behance
-                    </a>
-
-                    <a href="https://www.linkedin.com/"
-                       target="_blank"
-                       class="btn btn-outline">
-                        LinkedIn
-                    </a>
-
-                </div>
-
-            </div>
-
+        <!-- Service 3 -->
+        <div class="scroll-reveal group bg-bg/80 backdrop-blur-xl rounded-3xl border border-border p-8 hover:border-accent/30 transition-all duration-500">
+          <div class="w-14 h-14 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center mb-6 group-hover:bg-accent/20 transition-colors">
+            <span class="iconify text-accent text-2xl" data-icon="mdi:image-filter-hdr"></span>
+          </div>
+          <h3 class="font-heading text-xl font-medium tracking-tight text-textMain mb-3">3D Rendering</h3>
+          <p class="text-textSec text-sm leading-relaxed">Photorealistic renders with perfect lighting, textures, and compositions for any purpose.</p>
         </div>
-
-    </section>
-        <!--==========================
-            FOOTER
-    ===========================-->
-
-    <footer class="footer">
-
-        <div class="container">
-
-            <div class="footer-logo">
-
-                <img src="assets/logo.png" alt="JD Logo">
-
-            </div>
-
-            <h2>
-
-                Jayesh SS
-
-            </h2>
-
-            <p>
-
-                Creative 3D Designer • Product Visualizer • Motion Designer •
-                Brand Visualizer
-
-            </p>
-
-            <div class="social-links">
-
-                <a href="https://www.behance.net/" target="_blank">
-                    Behance
-                </a>
-
-                <a href="https://www.linkedin.com/" target="_blank">
-                    LinkedIn
-                </a>
-
-                <a href="https://www.instagram.com/" target="_blank">
-                    Instagram
-                </a>
-
-                <a href="https://github.com/Jayeshss" target="_blank">
-                    GitHub
-                </a>
-
-            </div>
-
-            <p class="copyright">
-
-                © 2026 Jayesh SS.
-                All Rights Reserved.
-
-            </p>
-
+        <!-- Service 4 -->
+        <div class="scroll-reveal group bg-bg/80 backdrop-blur-xl rounded-3xl border border-border p-8 hover:border-accent/30 transition-all duration-500">
+          <div class="w-14 h-14 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center mb-6 group-hover:bg-accent/20 transition-colors">
+            <span class="iconify text-accent text-2xl" data-icon="mdi:motion-play-outline"></span>
+          </div>
+          <h3 class="font-heading text-xl font-medium tracking-tight text-textMain mb-3">Motion Design</h3>
+          <p class="text-textSec text-sm leading-relaxed">Eye-catching animations, 3D motion graphics, and video intros for brands and social media.</p>
         </div>
+      </div>
+    </div>
+  </section>
 
-    </footer>
+  <!-- PORTFOLIO / WORK SECTION -->
+  <section id="work" class="py-20 md:py-32">
+    <div class="max-w-[1550px] mx-auto px-4 md:px-8">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 scroll-reveal">
+        <div>
+          <span class="text-[10px] font-mono font-medium uppercase tracking-widest text-accent mb-4 block">Selected Work</span>
+          <h2 class="font-heading text-3xl md:text-5xl font-medium tracking-tight text-textMain">
+            Portfolio<span class="text-accent">.</span>
+          </h2>
+        </div>
+        <!-- Filter Buttons -->
+        <div class="flex gap-2 flex-wrap">
+          <button class="filter-btn active text-xs font-bold uppercase tracking-widest px-5 py-2.5 rounded-full border border-border transition-all duration-300" data-filter="all">All</button>
+          <button class="filter-btn text-xs font-bold uppercase tracking-widest px-5 py-2.5 rounded-full border border-border text-textSec hover:text-accent hover:border-accent transition-all duration-300" data-filter="3d">3D Design</button>
+          <button class="filter-btn text-xs font-bold uppercase tracking-widest px-5 py-2.5 rounded-full border border-border text-textSec hover:text-accent hover:border-accent transition-all duration-300" data-filter="graphic">Graphic</button>
+        </div>
+      </div>
 
-    <!--==========================
-            BACK TO TOP
-    ===========================-->
+      <!-- Portfolio Grid -->
+      <div id="portfolioGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Project 1 -->
+        <div class="portfolio-item card-hover relative rounded-2xl overflow-hidden border border-border aspect-[4/5] cursor-pointer" data-category="3d">
+          <img src="https://picsum.photos/seed/3d-product-viz/800/1000.jpg" class="card-img w-full h-full object-cover opacity-60" alt="3D Product Visualization" />
+          <div class="card-overlay absolute inset-0 bg-gradient-to-t from-bg via-bg/50 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-6">
+            <span class="card-tag inline-block px-3 py-1 rounded-full bg-accent/20 border border-accent/30 text-accent text-[10px] font-mono uppercase tracking-widest mb-3">3D Design</span>
+            <h3 class="card-text font-heading text-xl font-medium tracking-tight text-textMain">Product Visualization</h3>
+            <p class="card-text text-textSec text-sm mt-1" style="transition-delay: 150ms;">Photorealistic 3D render for a tech brand</p>
+          </div>
+        </div>
+        <!-- Project 2 -->
+        <div class="portfolio-item card-hover relative rounded-2xl overflow-hidden border border-border aspect-[4/5] cursor-pointer" data-category="graphic">
+          <img src="https://picsum.photos/seed/brand-identity-proj/800/1000.jpg" class="card-img w-full h-full object-cover opacity-60" alt="Brand Identity" />
+          <div class="card-overlay absolute inset-0 bg-gradient-to-t from-bg via-bg/50 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-6">
+            <span class="card-tag inline-block px-3 py-1 rounded-full bg-accent/20 border border-accent/30 text-accent text-[10px] font-mono uppercase tracking-widest mb-3">Graphic</span>
+            <h3 class="card-text font-heading text-xl font-medium tracking-tight text-textMain">Brand Identity</h3>
+            <p class="card-text text-textSec text-sm mt-1" style="transition-delay: 150ms;">Complete visual identity for a startup</p>
+          </div>
+        </div>
+        <!-- Project 3 -->
+        <div class="portfolio-item card-hover relative rounded-2xl overflow-hidden border border-border aspect-[4/5] cursor-pointer" data-category="3d">
+          <img src="https://picsum.photos/seed/3d-arch-viz/800/1000.jpg" class="card-img w-full h-full object-cover opacity-60" alt="Architectural Visualization" />
+          <div class="card-overlay absolute inset-0 bg-gradient-to-t from-bg via-bg/50 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-6">
+            <span class="card-tag inline-block px-3 py-1 rounded-full bg-accent/20 border border-accent/30 text-accent text-[10px] font-mono uppercase tracking-widest mb-3">3D Design</span>
+            <h3 class="card-text font-heading text-xl font-medium tracking-tight text-textMain">Architectural Viz</h3>
+            <p class="card-text text-textSec text-sm mt-1" style="transition-delay: 150ms;">Interior rendering for a luxury apartment</p>
+          </div>
+        </div>
+        <!-- Project 4 -->
+        <div class="portfolio-item card-hover relative rounded-2xl overflow-hidden border border-border aspect-[4/5] cursor-pointer" data-category="graphic">
+          <img src="https://picsum.photos/seed/poster-design-proj/800/1000.jpg" class="card-img w-full h-full object-cover opacity-60" alt="Poster Design" />
+          <div class="card-overlay absolute inset-0 bg-gradient-to-t from-bg via-bg/50 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-6">
+            <span class="card-tag inline-block px-3 py-1 rounded-full bg-accent/20 border border-accent/30 text-accent text-[10px] font-mono uppercase tracking-widest mb-3">Graphic</span>
+            <h3 class="card-text font-heading text-xl font-medium tracking-tight text-textMain">Poster Series</h3>
+            <p class="card-text text-textSec text-sm mt-1" style="transition-delay: 150ms;">Event posters with bold typography</p>
+          </div>
+        </div>
+        <!-- Project 5 -->
+        <div class="portfolio-item card-hover relative rounded-2xl overflow-hidden border border-border aspect-[4/5] cursor-pointer" data-category="3d">
+          <img src="https://picsum.photos/seed/3d-character-model/800/1000.jpg" class="card-img w-full h-full object-cover opacity-60" alt="3D Character" />
+          <div class="card-overlay absolute inset-0 bg-gradient-to-t from-bg via-bg/50 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-6">
+            <span class="card-tag inline-block px-3 py-1 rounded-full bg-accent/20 border border-accent/30 text-accent text-[10px] font-mono uppercase tracking-widest mb-3">3D Design</span>
+            <h3 class="card-text font-heading text-xl font-medium tracking-tight text-textMain">Character Design</h3>
+            <p class="card-text text-textSec text-sm mt-1" style="transition-delay: 150ms;">Stylized 3D character for a game project</p>
+          </div>
+        </div>
+        <!-- Project 6 -->
+        <div class="portfolio-item card-hover relative rounded-2xl overflow-hidden border border-border aspect-[4/5] cursor-pointer" data-category="graphic">
+          <img src="https://picsum.photos/seed/social-media-design/800/1000.jpg" class="card-img w-full h-full object-cover opacity-60" alt="Social Media Design" />
+          <div class="card-overlay absolute inset-0 bg-gradient-to-t from-bg via-bg/50 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-6">
+            <span class="card-tag inline-block px-3 py-1 rounded-full bg-accent/20 border border-accent/30 text-accent text-[10px] font-mono uppercase tracking-widest mb-3">Graphic</span>
+            <h3 class="card-text font-heading text-xl font-medium tracking-tight text-textMain">Social Media Kit</h3>
+            <p class="card-text text-textSec text-sm mt-1" style="transition-delay: 150ms;">Consistent visual system across platforms</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <button id="topBtn" title="Back to Top">
+  <!-- SKILLS & TOOLS SECTION -->
+  <section id="skills" class="py-20 md:py-32 bg-bgSec/50">
+    <div class="max-w-[1550px] mx-auto px-4 md:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+        <!-- Left: Skills Bars -->
+        <div class="scroll-reveal">
+          <span class="text-[10px] font-mono font-medium uppercase tracking-widest text-accent mb-4 block">Expertise</span>
+          <h2 class="font-heading text-3xl md:text-5xl font-medium tracking-tight text-textMain mb-10">
+            Skills<span class="text-accent">.</span>
+          </h2>
+          <div class="space-y-6">
+            <div>
+              <div class="flex justify-between mb-2">
+                <span class="text-sm font-medium text-textMain">3D Modeling & Sculpting</span>
+                <span class="text-sm text-accent font-mono">95%</span>
+              </div>
+              <div class="w-full h-1.5 bg-border rounded-full overflow-hidden">
+                <div class="skill-bar h-full bg-accent rounded-full" data-width="95" style="width: 0%;"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-2">
+                <span class="text-sm font-medium text-textMain">3D Rendering & Lighting</span>
+                <span class="text-sm text-accent font-mono">92%</span>
+              </div>
+              <div class="w-full h-1.5 bg-border rounded-full overflow-hidden">
+                <div class="skill-bar h-full bg-accent rounded-full" data-width="92" style="width: 0%;"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-2">
+                <span class="text-sm font-medium text-textMain">Brand & Logo Design</span>
+                <span class="text-sm text-accent font-mono">90%</span>
+              </div>
+              <div class="w-full h-1.5 bg-border rounded-full overflow-hidden">
+                <div class="skill-bar h-full bg-accent rounded-full" data-width="90" style="width: 0%;"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-2">
+                <span class="text-sm font-medium text-textMain">Typography & Layout</span>
+                <span class="text-sm text-accent font-mono">88%</span>
+              </div>
+              <div class="w-full h-1.5 bg-border rounded-full overflow-hidden">
+                <div class="skill-bar h-full bg-accent rounded-full" data-width="88" style="width: 0%;"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-2">
+                <span class="text-sm font-medium text-textMain">Motion Graphics & Animation</span>
+                <span class="text-sm text-accent font-mono">82%</span>
+              </div>
+              <div class="w-full h-1.5 bg-border rounded-full overflow-hidden">
+                <div class="skill-bar h-full bg-accent rounded-full" data-width="82" style="width: 0%;"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-2">
+                <span class="text-sm font-medium text-textMain">UI/UX Design</span>
+                <span class="text-sm text-accent font-mono">75%</span>
+              </div>
+              <div class="w-full h-1.5 bg-border rounded-full overflow-hidden">
+                <div class="skill-bar h-full bg-accent rounded-full" data-width="75" style="width: 0%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Right: Tools Grid -->
+        <div class="scroll-reveal">
+          <span class="text-[10px] font-mono font-medium uppercase tracking-widest text-accent mb-4 block">Tools</span>
+          <h2 class="font-heading text-3xl md:text-5xl font-medium tracking-tight text-textMain mb-10">
+            Software<span class="text-accent">.</span>
+          </h2>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            <!-- Tool Cards -->
+            <div class="group bg-bg/80 backdrop-blur-xl rounded-2xl border border-border p-6 text-center hover:border-accent/30 transition-all duration-300">
+              <span class="iconify text-4xl text-textSec group-hover:text-accent transition-colors mx-auto block mb-3" data-icon="simple-icons:blender"></span>
+              <span class="text-xs font-medium text-textMain">Blender</span>
+            </div>
+            <div class="group bg-bg/80 backdrop-blur-xl rounded-2xl border border-border p-6 text-center hover:border-accent/30 transition-all duration-300">
+              <span class="iconify text-4xl text-textSec group-hover:text-accent transition-colors mx-auto block mb-3" data-icon="simple-icons:adobephotoshop"></span>
+              <span class="text-xs font-medium text-textMain">Photoshop</span>
+            </div>
+            <div class="group bg-bg/80 backdrop-blur-xl rounded-2xl border border-border p-6 text-center hover:border-accent/30 transition-all duration-300">
+              <span class="iconify text-4xl text-textSec group-hover:text-accent transition-colors mx-auto block mb-3" data-icon="simple-icons:adobeillustrator"></span>
+              <span class="text-xs font-medium text-textMain">Illustrator</span>
+            </div>
+            <div class="group bg-bg/80 backdrop-blur-xl rounded-2xl border border-border p-6 text-center hover:border-accent/30 transition-all duration-300">
+              <span class="iconify text-4xl text-textSec group-hover:text-accent transition-colors mx-auto block mb-3" data-icon="simple-icons:adobeaftereffects"></span>
+              <span class="text-xs font-medium text-textMain">After Effects</span>
+            </div>
+            <div class="group bg-bg/80 backdrop-blur-xl rounded-2xl border border-border p-6 text-center hover:border-accent/30 transition-all duration-300">
+              <span class="iconify text-4xl text-textSec group-hover:text-accent transition-colors mx-auto block mb-3" data-icon="simple-icons:figma"></span>
+              <span class="text-xs font-medium text-textMain">Figma</span>
+            </div>
+            <div class="group bg-bg/80 backdrop-blur-xl rounded-2xl border border-border p-6 text-center hover:border-accent/30 transition-all duration-300">
+              <span class="iconify text-4xl text-textSec group-hover:text-accent transition-colors mx-auto block mb-3" data-icon="simple-icons:cinema4d"></span>
+              <span class="text-xs font-medium text-textMain">Cinema 4D</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        ↑
+  <!-- TESTIMONIALS SECTION -->
+  <section class="py-20 md:py-32">
+    <div class="max-w-[1550px] mx-auto px-4 md:px-8">
+      <div class="text-center mb-16 scroll-reveal">
+        <span class="text-[10px] font-mono font-medium uppercase tracking-widest text-accent mb-4 block">Testimonials</span>
+        <h2 class="font-heading text-3xl md:text-5xl font-medium tracking-tight text-textMain">
+          Client Words<span class="text-accent">.</span>
+        </h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- Testimonial 1 -->
+        <div class="scroll-reveal bg-bgSec/80 backdrop-blur-xl rounded-3xl border border-border p-8 hover:border-accent/20 transition-all duration-500">
+          <div class="flex gap-1 mb-6">
+            <span class="iconify text-accent" data-icon="mdi:star"></span>
+            <span class="iconify text-accent" data-icon="mdi:star"></span>
+            <span class="iconify text-accent" data-icon="mdi:star"></span>
+            <span class="iconify text-accent" data-icon="mdi:star"></span>
+            <span class="iconify text-accent" data-icon="mdi:star"></span>
+          </div>
+          <p class="text-textSec text-sm leading-relaxed mb-6">"Absolutely stunning 3D renders. The attention to detail and lighting quality exceeded our expectations. Delivered on time and was super responsive."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full overflow-hidden border border-border">
+              <img src="https://picsum.photos/seed/client1-face/80/80.jpg" class="w-full h-full object-cover" alt="" />
+            </div>
+            <div>
+              <div class="text-sm font-medium text-textMain">Alex Johnson</div>
+              <div class="text-xs text-textSec">CEO, TechViz Studio</div>
+            </div>
+          </div>
+        </div>
+        <!-- Testimonial 2 -->
+        <div class="scroll-reveal bg-bgSec/80 backdrop-blur-xl rounded-3xl border border-border p-8 hover:border-accent/20 transition-all duration-500">
+          <div class="flex gap-1 mb-6">
+            <span class="iconify text-accent" data-icon="mdi:star"></span>
+            <span class="iconify text-accent" data-icon="mdi:star"></span>
+            <span class="iconify text-accent" data-icon="mdi:star"></span>
+            <span class="iconify text-accent" data-icon="mdi:star"></span>
+            <span class="iconify text-accent" data-icon="mdi:star"></span>
+          </div>
+          <p class="text-textSec text-sm leading-relaxed mb-6">"The brand identity they created for us was spot on. Understood our vision perfectly and translated it into a cohesive, modern visual system."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full overflow-hidden border border-border">
+              <img src="https://picsum.photos/seed/client2-face/80/80.jpg" class="w-full h-full object-cover" alt="" />
+            </div>
+            <div>
+              <div class="text-sm font-medium text-textMain">Sarah Mitchell</div>
+              <div class="text-xs text-textSec">Founder, Bloom Co.</div>
+            </div>
+          </div>
+        </div>
+        <!-- Testimonial 3 -->
+        <div class="scroll-reveal bg-bgSec/80 backdrop-blur-xl rounded-3xl border border-border p-8 hover:border-accent/20 transition-all duration-500">
+          <div class="flex gap-1 mb-6">
+            <span class="iconify text-accent" data-icon="mdi:star"></span>
+            <span class="iconify text-accent" data-icon="mdi:star"></span>
+            <span class="iconify text-accent" data-icon="mdi:star"></span>
+            <span class="iconify text-accent" data-icon="mdi:star"></span>
+            <span class="iconify text-accent" data-icon="mdi:star-half-full"></span>
+          </div>
+          <p class="text-textSec text-sm leading-relaxed mb-6">"We needed product renders that looked real enough to touch. The results were phenomenal — our conversion rate jumped 40% after updating our site."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full overflow-hidden border border-border">
+              <img src="https://picsum.photos/seed/client3-face/80/80.jpg" class="w-full h-full object-cover" alt="" />
+            </div>
+            <div>
+              <div class="text-sm font-medium text-textMain">David Park</div>
+              <div class="text-xs text-textSec">Marketing Dir., Nova Brand</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    </button>
+  <!-- CONTACT SECTION -->
+  <section id="contact" class="py-20 md:py-32 bg-bgSec/50">
+    <div class="max-w-[1550px] mx-auto px-4 md:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+        <!-- Left: Info -->
+        <div class="scroll-reveal">
+          <span class="text-[10px] font-mono font-medium uppercase tracking-widest text-accent mb-4 block">Get in Touch</span>
+          <h2 class="font-heading text-3xl md:text-5xl font-medium tracking-tight text-textMain mb-6">
+            Let's create something amazing<span class="text-accent">.</span>
+          </h2>
+          <p class="text-textSec text-sm md:text-base leading-relaxed mb-10 max-w-lg">
+            Have a project in mind? I'd love to hear about it. Whether it's a 3D visualization, brand identity, or anything creative — let's make it happen.
+          </p>
+          <!-- Contact Info Cards -->
+          <div class="space-y-4">
+            <div class="flex items-center gap-4 bg-bg/80 backdrop-blur-xl rounded-2xl border border-border p-5">
+              <div class="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0">
+                <span class="iconify text-accent text-xl" data-icon="mdi:email-outline"></span>
+              </div>
+              <div>
+                <div class="text-[10px] uppercase tracking-widest text-textWeak mb-1">Email</div>
+                <div class="text-sm font-medium text-textMain">hello@yourdomain.com</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 bg-bg/80 backdrop-blur-xl rounded-2xl border border-border p-5">
+              <div class="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0">
+                <span class="iconify text-accent text-xl" data-icon="mdi:map-marker-outline"></span>
+              </div>
+              <div>
+                <div class="text-[10px] uppercase tracking-widest text-textWeak mb-1">Location</div>
+                <div class="text-sm font-medium text-textMain">Your City, Country</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 bg-bg/80 backdrop-blur-xl rounded-2xl border border-border p-5">
+              <div class="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0">
+                <span class="iconify text-accent text-xl" data-icon="mdi:clock-outline"></span>
+              </div>
+              <div>
+                <div class="text-[10px] uppercase tracking-widest text-textWeak mb-1">Availability</div>
+                <div class="text-sm font-medium text-textMain">Mon – Fri, 9AM – 6PM</div>
+              </div>
+            </div>
+          </div>
+          <!-- Social Links -->
+          <div class="flex gap-3 mt-8">
+            <a href="#" class="w-12 h-12 rounded-full border border-border flex items-center justify-center text-textSec hover:text-accent hover:border-accent transition-all">
+              <span class="iconify text-xl" data-icon="mdi:instagram"></span>
+            </a>
+            <a href="#" class="w-12 h-12 rounded-full border border-border flex items-center justify-center text-textSec hover:text-accent hover:border-accent transition-all">
+              <span class="iconify text-xl" data-icon="mdi:behance"></span>
+            </a>
+            <a href="#" class="w-12 h-12 rounded-full border border-border flex items-center justify-center text-textSec hover:text-accent hover:border-accent transition-all">
+              <span class="iconify text-xl" data-icon="mdi:linkedin"></span>
+            </a>
+            <a href="#" class="w-12 h-12 rounded-full border border-border flex items-center justify-center text-textSec hover:text-accent hover:border-accent transition-all">
+              <span class="iconify text-xl" data-icon="mdi:twitter"></span>
+            </a>
+            <a href="#" class="w-12 h-12 rounded-full border border-border flex items-center justify-center text-textSec hover:text-accent hover:border-accent transition-all">
+              <span class="iconify text-xl" data-icon="simple-icons:artstation"></span>
+            </a>
+          </div>
+        </div>
+        <!-- Right: Form -->
+        <div class="scroll-reveal">
+          <form id="contactForm" class="bg-bg/80 backdrop-blur-xl rounded-3xl border border-border p-8 md:p-10 space-y-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-[10px] uppercase tracking-widest text-textWeak mb-2">Name *</label>
+                <input type="text" required placeholder="John Doe" class="w-full bg-bgSec border border-border rounded-xl px-5 py-3.5 text-sm text-textMain placeholder-textWeak focus:outline-none focus:border-accent transition-colors" />
+              </div>
+              <div>
+                <label class="block text-[10px] uppercase tracking-widest text-textWeak mb-2">Email *</label>
+                <input type="email" required placeholder="john@example.com" class="w-full bg-bgSec border border-border rounded-xl px-5 py-3.5 text-sm text-textMain placeholder-textWeak focus:outline-none focus:border-accent transition-colors" />
+              </div>
+            </div>
+            <div>
+              <label class="block text-[10px] uppercase tracking-widest text-textWeak mb-2">Project Type</label>
+              <select class="w-full bg-bgSec border border-border rounded-xl px-5 py-3.5 text-sm text-textSec focus:outline-none focus:border-accent transition-colors appearance-none cursor-pointer" style="background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2224%22 height=%2224%22 viewBox=%220 0 24 24%22%3E%3Cpath fill=%22%23A1A1A6%22 d=%22M7 10l5 5 5-5z%22/%3E%3C/svg%3E'); background-repeat: no-repeat; background-position: right 12px center; background-size: 20px;">
+                <option>3D Modeling & Rendering</option>
+                <option>Brand Identity Design</option>
+                <option>Graphic Design</option>
+                <option>Motion Graphics</option>
+                <option>Product Visualization</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[10px] uppercase tracking-widest text-textWeak mb-2">Budget Range</label>
+              <select class="w-full bg-bgSec border border-border rounded-xl px-5 py-3.5 text-sm text-textSec focus:outline-none focus:border-accent transition-colors appearance-none cursor-pointer" style="background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2224%22 height=%2224%22 viewBox=%220 0 24 24%22%3E%3Cpath fill=%22%23A1A1A6%22 d=%22M7 10l5 5 5-5z%22/%3E%3C/svg%3E'); background-repeat: no-repeat; background-position: right 12px center; background-size: 20px;">
+                <option>$500 – $1,000</option>
+                <option>$1,000 – $3,000</option>
+                <option>$3,000 – $5,000</option>
+                <option>$5,000+</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[10px] uppercase tracking-widest text-textWeak mb-2">Message *</label>
+              <textarea required rows="5" placeholder="Tell me about your project..." class="w-full bg-bgSec border border-border rounded-xl px-5 py-3.5 text-sm text-textMain placeholder-textWeak focus:outline-none focus:border-accent transition-colors resize-none"></textarea>
+            </div>
+            <button type="submit" class="w-full bg-accent text-bg text-xs font-bold uppercase tracking-widest px-6 py-4 rounded-full hover:bg-textMain transition-colors flex items-center justify-center gap-2">
+              Send Message
+              <span class="iconify text-base" data-icon="mdi:arrow-top-right"></span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!--==========================
-            CURSOR
-    ===========================-->
+  <!-- FOOTER -->
+  <footer class="py-12 border-t border-border">
+    <div class="max-w-[1550px] mx-auto px-4 md:px-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-6">
+          <a href="#hero" class="font-heading font-semibold text-lg tracking-tight text-textMain">
+            PORTFOLIO<span class="text-accent">.</span>
+          </a>
+          <span class="hidden md:inline text-textWeak">|</span>
+          <span class="text-textSec text-sm">3D & Graphic Designer</span>
+        </div>
+        <div class="flex items-center gap-6">
+          <a href="#about" class="text-xs text-textSec hover:text-accent transition-colors uppercase tracking-widest">About</a>
+          <a href="#work" class="text-xs text-textSec hover:text-accent transition-colors uppercase tracking-widest">Work</a>
+          <a href="#contact" class="text-xs text-textSec hover:text-accent transition-colors uppercase tracking-widest">Contact</a>
+        </div>
+        <div class="text-textWeak text-xs">
+          © <span id="year"></span> All rights reserved.
+        </div>
+      </div>
+    </div>
+  </footer>
 
-    <div class="cursor"></div>
+  <!-- BACK TO TOP -->
+  <button id="backToTop" class="fixed bottom-6 left-6 z-50 w-12 h-12 rounded-full bg-bgSec border border-border flex items-center justify-center text-textSec hover:text-accent hover:border-accent transition-all opacity-0 translate-y-4 pointer-events-none" style="transition: opacity 300ms, transform 300ms;">
+    <span class="iconify text-xl" data-icon="mdi:arrow-up"></span>
+  </button>
 
-    <div class="cursor2"></div>
+  <script>
+    // ---- YEAR ----
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-    <!--==========================
-            JAVASCRIPT
-    ===========================-->
+    // ---- MOBILE MENU ----
+    const menuToggle = document.getElementById('menuToggle');
+    const menuClose = document.getElementById('menuClose');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
 
-    <script src="script.js"></script>
+    menuToggle.addEventListener('click', () => mobileMenu.classList.add('open'));
+    menuClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    mobileLinks.forEach(link => link.addEventListener('click', () => mobileMenu.classList.remove('open')));
 
+    // ---- PORTFOLIO FILTER ----
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        portfolioItems.forEach(item => {
+          if (filter === 'all' || item.dataset.category === filter) {
+            item.style.display = '';
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            requestAnimationFrame(() => {
+              item.style.transition = 'opacity 400ms ease, transform 400ms ease';
+              item.style.opacity = '1';
+              item.style.transform = 'translateY(0)';
+            });
+          } else {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            setTimeout(() => { item.style.display = 'none'; }, 400);
+          }
+        });
+      });
+    });
+
+    // ---- SCROLL REVEAL ----
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-in-up');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+
+    // ---- SKILL BARS ----
+    const skillObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const bars = entry.target.querySelectorAll('.skill-bar');
+          bars.forEach(bar => {
+            bar.style.width = bar.dataset.width + '%';
+          });
+          skillObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('.skill-bar').forEach(bar => {
+      skillObserver.observe(bar.closest('.scroll-reveal') || bar.parentElement.parentElement);
+    });
+
+    // ---- CONTACT FORM ----
+    const contactForm = document.getElementById('contactForm');
+    const toast = document.getElementById('toast');
+    const toastMsg = document.getElementById('toastMsg');
+
+    function showToast(msg) {
+      toastMsg.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3500);
+    }
+
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      showToast('Message sent successfully! I\'ll get back to you soon.');
+      contactForm.reset();
+    });
+
+    // ---- BACK TO TOP ----
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 600) {
+        backToTop.style.opacity = '1';
+        backToTop.style.transform = 'translateY(0)';
+        backToTop.style.pointerEvents = 'auto';
+      } else {
+        backToTop.style.opacity = '0';
+        backToTop.style.transform = 'translateY(16px)';
+        backToTop.style.pointerEvents = 'none';
+      }
+    });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ---- NAVBAR SCROLL EFFECT ----
+    const navbar = document.getElementById('navbar');
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.scrollY;
+      if (currentScroll > 100) {
+        navbar.style.paddingTop = '8px';
+        navbar.style.paddingBottom = '0px';
+      } else {
+        navbar.style.paddingTop = '';
+        navbar.style.paddingBottom = '';
+      }
+      lastScroll = currentScroll;
+    });
+  </script>
 </body>
-
 </html>
