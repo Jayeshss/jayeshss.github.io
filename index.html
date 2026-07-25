@@ -58,7 +58,7 @@ body {
   font-weight: 300;
   line-height: 1.6;
   overflow-x: hidden;
-  cursor: none;
+  cursor: url("assets/Mouse Pointer 2.png") 16 16, auto;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -70,7 +70,10 @@ button { border: none; background: none; font-family: inherit; cursor: none; col
 img, video { display: block; max-width: 100%; }
 
 /* Custom Cursor */
-.cursor-dot, .cursor-outline {
+.cursor-dot,
+.cursor-outline{
+    display: none !important;
+}
   position: fixed;
   top: 0; left: 0;
   pointer-events: none;
