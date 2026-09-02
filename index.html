@@ -766,6 +766,13 @@ body.gallery-open {
     min-height: 200px;
   }
 }
+  .portfolio-gallery video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: #000000;
+}
 </style>
 </head>
 <body>
@@ -961,7 +968,11 @@ body.gallery-open {
     </div>
 
     <!-- Motion & Product Videos -->
-    <div class="project-card reveal">
+    <div class="project-card reveal clickable-card"
+     onclick="openProjectGallery('motionGallery')"
+     role="button"
+     tabindex="0"
+     onkeydown="if(event.key === 'Enter'){ openProjectGallery('motionGallery'); }">
       <div class="project-preview">
         <img
           src="assets/images/motion-product-videos.png.png"
@@ -987,7 +998,11 @@ body.gallery-open {
     </div>
 
     <!-- Branding & Posters -->
-    <div class="project-card reveal">
+    <div class="project-card reveal clickable-card"
+     onclick="openProjectGallery('brandingGallery')"
+     role="button"
+     tabindex="0"
+     onkeydown="if(event.key === 'Enter'){ openProjectGallery('brandingGallery'); }">
       <div class="project-preview">
         <img
           src="assets/images/branding-posters.png.png"
@@ -1013,7 +1028,11 @@ body.gallery-open {
     </div>
 
     <!-- Packaging Designs -->
-    <div class="project-card reveal">
+    <div class="project-card reveal clickable-card"
+     onclick="openProjectGallery('packagingGallery')"
+     role="button"
+     tabindex="0"
+     onkeydown="if(event.key === 'Enter'){ openProjectGallery('packagingGallery'); }">
       <div class="project-preview">
         <img
           src="assets/images/packaging-designs.png.png"
@@ -1456,6 +1475,178 @@ function init3D() {
   document.addEventListener("keydown", function (event) {
     if (event.key === "Escape") {
       close3DGallery();
+    }
+  });
+</script>
+  <!-- MOTION & PRODUCT VIDEOS -->
+<div
+  class="portfolio-modal"
+  id="motionGallery"
+  aria-hidden="true"
+  onclick="closeProjectGallery(event, 'motionGallery')"
+>
+  <div
+    class="portfolio-modal-dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="motionGalleryTitle"
+  >
+    <div class="portfolio-modal-header">
+      <div>
+        <span class="portfolio-modal-label">Selected Projects</span>
+        <h2 class="portfolio-modal-title" id="motionGalleryTitle">
+          Motion &amp; Product Videos
+        </h2>
+      </div>
+
+      <button
+        type="button"
+        class="portfolio-modal-close"
+        onclick="closeProjectGallery(null, 'motionGallery')"
+        aria-label="Close gallery"
+      >
+        &times;
+      </button>
+    </div>
+
+    <div class="portfolio-gallery">
+      <video controls playsinline preload="metadata">
+        <source src="assets/images/motion-01.mp4" type="video/mp4">
+      </video>
+
+      <video controls playsinline preload="metadata">
+        <source src="assets/images/motion-02.mp4" type="video/mp4">
+      </video>
+
+      <video controls playsinline preload="metadata">
+        <source src="assets/images/motion-03.mp4" type="video/mp4">
+      </video>
+
+      <video controls playsinline preload="metadata">
+        <source src="assets/images/motion-04.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</div>
+
+
+<!-- BRANDING & POSTERS -->
+<div
+  class="portfolio-modal"
+  id="brandingGallery"
+  aria-hidden="true"
+  onclick="closeProjectGallery(event, 'brandingGallery')"
+>
+  <div
+    class="portfolio-modal-dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="brandingGalleryTitle"
+  >
+    <div class="portfolio-modal-header">
+      <div>
+        <span class="portfolio-modal-label">Selected Projects</span>
+        <h2 class="portfolio-modal-title" id="brandingGalleryTitle">
+          Branding &amp; Posters
+        </h2>
+      </div>
+
+      <button
+        type="button"
+        class="portfolio-modal-close"
+        onclick="closeProjectGallery(null, 'brandingGallery')"
+        aria-label="Close gallery"
+      >
+        &times;
+      </button>
+    </div>
+
+    <div class="portfolio-gallery">
+      <img src="assets/images/branding-01.png" alt="Branding and poster project 1">
+      <img src="assets/images/branding-02.png" alt="Branding and poster project 2">
+      <img src="assets/images/branding-03.png" alt="Branding and poster project 3">
+      <img src="assets/images/branding-04.png" alt="Branding and poster project 4">
+    </div>
+  </div>
+</div>
+
+
+<!-- PACKAGING DESIGNS -->
+<div
+  class="portfolio-modal"
+  id="packagingGallery"
+  aria-hidden="true"
+  onclick="closeProjectGallery(event, 'packagingGallery')"
+>
+  <div
+    class="portfolio-modal-dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="packagingGalleryTitle"
+  >
+    <div class="portfolio-modal-header">
+      <div>
+        <span class="portfolio-modal-label">Selected Projects</span>
+        <h2 class="portfolio-modal-title" id="packagingGalleryTitle">
+          Packaging Designs
+        </h2>
+      </div>
+
+      <button
+        type="button"
+        class="portfolio-modal-close"
+        onclick="closeProjectGallery(null, 'packagingGallery')"
+        aria-label="Close gallery"
+      >
+        &times;
+      </button>
+    </div>
+
+    <div class="portfolio-gallery">
+      <img src="assets/images/packaging-01.png" alt="Packaging design project 1">
+      <img src="assets/images/packaging-02.png" alt="Packaging design project 2">
+      <img src="assets/images/packaging-03.png" alt="Packaging design project 3">
+      <img src="assets/images/packaging-04.png" alt="Packaging design project 4">
+    </div>
+  </div>
+</div>
+
+
+<script>
+  function openProjectGallery(galleryId) {
+    const gallery = document.getElementById(galleryId);
+
+    gallery.classList.add("is-open");
+    gallery.setAttribute("aria-hidden", "false");
+    document.body.classList.add("gallery-open");
+  }
+
+  function closeProjectGallery(event, galleryId) {
+    if (event && event.target !== event.currentTarget) return;
+
+    const gallery = document.getElementById(galleryId);
+
+    gallery.classList.remove("is-open");
+    gallery.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("gallery-open");
+
+    gallery.querySelectorAll("video").forEach(function(video) {
+      video.pause();
+    });
+  }
+
+  document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+      document.querySelectorAll(".portfolio-modal.is-open").forEach(function(gallery) {
+        gallery.classList.remove("is-open");
+        gallery.setAttribute("aria-hidden", "true");
+
+        gallery.querySelectorAll("video").forEach(function(video) {
+          video.pause();
+        });
+      });
+
+      document.body.classList.remove("gallery-open");
     }
   });
 </script>
