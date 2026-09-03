@@ -1251,7 +1251,7 @@ body.gallery-open {
 <!-- Footer -->
 <footer class="footer">
   <div class="footer-info">
-    <p>&copy; 2026 Jayesh S S. Crafted with <span>♦</span> and precision.</p>
+   <p>© <span id="currentYear"></span> Jayesh S S. Crafted with ♦ and precision.</p>
     <p>Designed for an immersive experience.</p>
   </div>
   <div class="footer-socials">
@@ -1780,6 +1780,10 @@ function init3D() {
       document.body.classList.remove("gallery-open");
     }
   });
+</script>
+  <script>
+  document.getElementById("currentYear").textContent =
+    new Date().getFullYear();
 </script>
 </body>
 </html>
