@@ -807,6 +807,65 @@ body.gallery-open {
 .contact-email:hover {
   color: #FAB502;
 }
+  .portfolio-gallery img {
+  cursor: zoom-in;
+}
+
+.image-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  background: rgba(0, 0, 0, 0.96);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  cursor: zoom-out;
+  transition: 0.3s ease;
+}
+
+.image-lightbox.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.image-lightbox img {
+  display: block;
+  max-width: 94vw;
+  max-height: 88vh;
+  object-fit: contain;
+  cursor: default;
+  transform: scale(0.94);
+  transition: transform 0.3s ease;
+}
+
+.image-lightbox.is-open img {
+  transform: scale(1);
+}
+
+.image-lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: #101010;
+  color: #ffffff;
+  font-size: 30px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.image-lightbox-close:hover {
+  border-color: #FAB502;
+  background: #FAB502;
+  color: #080808;
+}
 </style>
 </head>
 <body>
@@ -1804,6 +1863,62 @@ function init3D() {
   <script>
   document.getElementById("currentYear").textContent =
     new Date().getFullYear();
+</script>
+  <!-- FULL-SCREEN IMAGE VIEWER -->
+<div
+  class="image-lightbox"
+  id="imageLightbox"
+  aria-hidden="true"
+  onclick="closeImageLightbox(event)"
+>
+  <button
+    type="button"
+    class="image-lightbox-close"
+    onclick="closeImageLightbox()"
+    aria-label="Close full-screen image"
+  >
+    &times;
+  </button>
+
+  <img id="lightboxImage" src="" alt="">
+</div>
+
+<script>
+  const imageLightbox = document.getElementById("imageLightbox");
+  const lightboxImage = document.getElementById("lightboxImage");
+
+  document.querySelectorAll(".portfolio-gallery img").forEach(function(image) {
+    image.addEventListener("click", function(event) {
+      event.stopPropagation();
+
+      lightboxImage.src = image.src;
+      lightboxImage.alt = image.alt;
+
+      imageLightbox.classList.add("is-open");
+      imageLightbox.setAttribute("aria-hidden", "false");
+    });
+  });
+
+  function closeImageLightbox(event) {
+    if (event && event.target !== event.currentTarget) return;
+
+    imageLightbox.classList.remove("is-open");
+    imageLightbox.setAttribute("aria-hidden", "true");
+
+    setTimeout(function() {
+      lightboxImage.src = "";
+    }, 300);
+  }
+
+  document.addEventListener("keydown", function(event) {
+    if (
+      event.key === "Escape" &&
+      imageLightbox.classList.contains("is-open")
+    ) {
+      event.stopImmediatePropagation();
+      closeImageLightbox();
+    }
+  }, true);
 </script>
 </body>
 </html>
