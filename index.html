@@ -1656,16 +1656,6 @@ function init3D() {
 <div
   class="portfolio-modal"
   id="productGallery"
-  <model-viewer
-  class="product-3d-viewer"
-  src="assets/models/IBL%20Laser%20120M.glb"
-  alt="Interactive 3D model of iBELL Laser 120M"
-  camera-controls
-  auto-rotate
-  shadow-intensity="1"
-  exposure="1"
-  loading="lazy">
-</model-viewer>
   aria-hidden="true"
   onclick="close3DGallery(event)"
 >
@@ -1678,6 +1668,7 @@ function init3D() {
     <div class="portfolio-modal-header">
       <div>
         <span class="portfolio-modal-label">Selected Projects</span>
+
         <h2 class="portfolio-modal-title" id="productGalleryTitle">
           3D Product Visualization
         </h2>
@@ -1694,25 +1685,47 @@ function init3D() {
     </div>
 
     <div class="portfolio-gallery">
-      <img src="assets/images/3d-01.png"
-     alt="3D product visualization project 1"
-     loading="lazy"
-     decoding="async">
 
-<img src="assets/images/3d-02.png"
-     alt="3D product visualization project 2"
-     loading="lazy"
-     decoding="async">
+      <!-- Interactive 3D Model -->
+      <model-viewer
+        id="laserModel"
+        class="product-3d-viewer"
+        data-src="assets/models/IBL%20Laser%20120M.glb"
+        alt="Interactive 3D model of iBELL Laser 120M"
+        camera-controls
+        auto-rotate
+        shadow-intensity="1"
+        exposure="1">
+      </model-viewer>
 
-<img src="assets/images/3d-03.png"
-     alt="3D product visualization project 3"
-     loading="lazy"
-     decoding="async">
+      <img
+        src="assets/images/3d-01.png"
+        alt="3D product visualization project 1"
+        loading="lazy"
+        decoding="async"
+      >
 
-<img src="assets/images/3d-04.png"
-     alt="3D product visualization project 4"
-     loading="lazy"
-     decoding="async">
+      <img
+        src="assets/images/3d-02.png"
+        alt="3D product visualization project 2"
+        loading="lazy"
+        decoding="async"
+      >
+
+      <img
+        src="assets/images/3d-03.png"
+        alt="3D product visualization project 3"
+        loading="lazy"
+        decoding="async"
+      >
+
+      <img
+        src="assets/images/3d-04.png"
+        alt="3D product visualization project 4"
+        loading="lazy"
+        decoding="async"
+      >
+
     </div>
   </div>
 </div>
@@ -1720,6 +1733,12 @@ function init3D() {
 <script>
   function open3DGallery() {
     const gallery = document.getElementById("productGallery");
+    const viewer = document.getElementById("laserModel");
+
+    // Load GLB only when the card is clicked
+    if (viewer && !viewer.getAttribute("src")) {
+      viewer.setAttribute("src", viewer.dataset.src);
+    }
 
     gallery.classList.add("is-open");
     gallery.setAttribute("aria-hidden", "false");
