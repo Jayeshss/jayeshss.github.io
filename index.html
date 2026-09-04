@@ -1742,6 +1742,22 @@ function init3D() {
 
 <script>
   function open3DGallery() {
+  const gallery = document.getElementById("productGallery");
+
+  const viewers = gallery.querySelectorAll(
+    ".product-3d-viewer[data-src]"
+  );
+
+  viewers.forEach(function (viewer) {
+    if (!viewer.getAttribute("src")) {
+      viewer.setAttribute("src", viewer.dataset.src);
+    }
+  });
+
+  gallery.classList.add("is-open");
+  gallery.setAttribute("aria-hidden", "false");
+  document.body.classList.add("gallery-open");
+}
     const gallery = document.getElementById("productGallery");
     const viewer = document.getElementById("laserModel");
 
