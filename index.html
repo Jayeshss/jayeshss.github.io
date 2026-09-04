@@ -891,6 +891,137 @@ body.gallery-open {
     height: 360px;
   }
 }
+  .model-project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+.model-project-card {
+  padding: 0;
+  overflow: hidden;
+  color: #ffffff;
+  text-align: left;
+  background: #111111;
+  border: 1px solid rgba(250, 181, 2, 0.35);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.model-project-card:hover {
+  transform: translateY(-6px);
+  border-color: #fab502;
+}
+
+.model-tile-viewer {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: radial-gradient(circle, #292929 0%, #101010 70%);
+  pointer-events: none;
+}
+
+.model-project-card h3 {
+  margin: 18px 18px 5px;
+  color: #ffffff;
+  font-size: 1.15rem;
+}
+
+.model-project-card span {
+  display: block;
+  margin: 0 18px 18px;
+  color: #fab502;
+  font-size: 0.9rem;
+}
+
+.model-back-button {
+  margin-bottom: 24px;
+  padding: 10px 16px;
+  color: #fab502;
+  background: transparent;
+  border: 1px solid rgba(250, 181, 2, 0.4);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.model-detail-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.8fr);
+  gap: 32px;
+  align-items: start;
+}
+
+.model-detail-viewer {
+  display: block;
+  width: 100%;
+  height: 520px;
+  background: radial-gradient(circle, #292929 0%, #101010 70%);
+  border: 1px solid rgba(250, 181, 2, 0.35);
+  border-radius: 16px;
+}
+
+.model-detail-info {
+  padding: 10px 0;
+}
+
+.model-detail-category {
+  color: #fab502;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.model-detail-info h3 {
+  margin: 10px 0 16px;
+  color: #ffffff;
+  font-size: 2rem;
+}
+
+.model-detail-info p {
+  color: #bdbdbd;
+  line-height: 1.7;
+}
+
+.model-detail-info h4 {
+  margin: 28px 0 12px;
+  color: #ffffff;
+}
+
+.model-detail-info ul {
+  padding-left: 20px;
+  color: #bdbdbd;
+  line-height: 1.8;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 700px) {
+  .model-project-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .model-project-card h3 {
+    margin: 12px 12px 4px;
+    font-size: 0.95rem;
+  }
+
+  .model-project-card span {
+    margin: 0 12px 12px;
+    font-size: 0.75rem;
+  }
+
+  .model-detail-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .model-detail-viewer {
+    height: 360px;
+  }
+}
 </style>
   <script
   type="module"
@@ -1653,6 +1784,7 @@ function init3D() {
 }
 </script>
 <!-- 3D PRODUCT VISUALIZATION GALLERY -->
+<!-- 3D PRODUCT VISUALIZATION GALLERY -->
 <div
   class="portfolio-modal"
   id="productGallery"
@@ -1684,89 +1816,191 @@ function init3D() {
       </button>
     </div>
 
-    <div class="portfolio-gallery">
+    <!-- SMALL PRODUCT CARDS -->
+    <div id="modelListView">
+      <div class="model-project-grid">
 
-      <!-- Interactive 3D Model -->
-      <model-viewer
-        id="laserModel"
-        class="product-3d-viewer"
-        data-src="assets/models/IBL%20Laser%20120M.glb"
-        alt="Interactive 3D model of iBELL Laser 120M"
-        camera-controls
-        auto-rotate
-        shadow-intensity="1"
-        exposure="1">
-      </model-viewer>
-      <model-viewer
-  id="heatGunModel"
-  class="product-3d-viewer"
-  data-src="assets/models/HEAT%20GUN.glb"
-  alt="Interactive 3D model of Heat Gun"
-  camera-controls
-  auto-rotate
-  shadow-intensity="1"
-  exposure="1">
-</model-viewer>
+        <!-- Laser Card -->
+        <button
+          type="button"
+          class="model-project-card"
+          onclick="openModelDetails('laser')"
+        >
+          <model-viewer
+            class="model-tile-viewer"
+            data-src="assets/models/IBL%20Laser%20120M.glb"
+            alt="iBELL Laser 120M"
+            auto-rotate
+            interaction-prompt="none"
+            disable-zoom>
+          </model-viewer>
 
-      <img
-        src="assets/images/3d-01.png"
-        alt="3D product visualization project 1"
-        loading="lazy"
-        decoding="async"
-      >
+          <h3>iBELL Laser 120M</h3>
+          <span>View 3D Project</span>
+        </button>
 
-      <img
-        src="assets/images/3d-02.png"
-        alt="3D product visualization project 2"
-        loading="lazy"
-        decoding="async"
-      >
+        <!-- Heat Gun Card -->
+        <button
+          type="button"
+          class="model-project-card"
+          onclick="openModelDetails('heatGun')"
+        >
+          <model-viewer
+            class="model-tile-viewer"
+            data-src="assets/models/HEAT%20GUN.glb"
+            alt="Heat Gun"
+            auto-rotate
+            interaction-prompt="none"
+            disable-zoom>
+          </model-viewer>
 
-      <img
-        src="assets/images/3d-03.png"
-        alt="3D product visualization project 3"
-        loading="lazy"
-        decoding="async"
-      >
+          <h3>Heat Gun</h3>
+          <span>View 3D Project</span>
+        </button>
 
-      <img
-        src="assets/images/3d-04.png"
-        alt="3D product visualization project 4"
-        loading="lazy"
-        decoding="async"
-      >
-
+      </div>
     </div>
+
+    <!-- PRODUCT DETAIL VIEW -->
+    <div id="modelDetailView" hidden>
+      <button
+        type="button"
+        class="model-back-button"
+        onclick="showModelList()"
+      >
+        ← Back to Projects
+      </button>
+
+      <div class="model-detail-layout">
+        <model-viewer
+          id="detailModelViewer"
+          class="model-detail-viewer"
+          alt="Interactive 3D product model"
+          camera-controls
+          auto-rotate
+          shadow-intensity="1"
+          exposure="1">
+        </model-viewer>
+
+        <div class="model-detail-info">
+          <span class="model-detail-category">
+            3D Product Visualization
+          </span>
+
+          <h3 id="detailModelTitle"></h3>
+
+          <p id="detailModelDescription"></p>
+
+          <h4>Project Details</h4>
+
+          <ul id="detailModelInformation"></ul>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
 <script>
+  const productModels = {
+    laser: {
+      title: "iBELL Laser 120M",
+      src: "assets/models/IBL%20Laser%20120M.glb",
+      description:
+        "A detailed commercial 3D visualization created with realistic materials, lighting and product-focused presentation.",
+      details: [
+        "Hard-surface 3D modelling",
+        "UV unwrapping and cleanup",
+        "PBR materials and texturing",
+        "Studio lighting and rendering",
+        "Software: Blender and Substance Painter"
+      ]
+    },
+
+    heatGun: {
+      title: "Heat Gun",
+      src: "assets/models/HEAT%20GUN.glb",
+      description:
+        "A realistic power-tool visualization featuring accurate hard-surface modelling, detailed materials and an interactive presentation.",
+      details: [
+        "Detailed product modelling",
+        "UV mapping and optimization",
+        "Realistic PBR texturing",
+        "Commercial lighting setup",
+        "Software: Blender and Substance Painter"
+      ]
+    }
+  };
+
   function open3DGallery() {
     const gallery = document.getElementById("productGallery");
-
-    const viewers = gallery.querySelectorAll(
-      ".product-3d-viewer[data-src]"
+    const tileViewers = gallery.querySelectorAll(
+      ".model-tile-viewer[data-src]"
     );
 
-    viewers.forEach(function (viewer) {
+    tileViewers.forEach(function (viewer) {
       if (!viewer.getAttribute("src")) {
         viewer.setAttribute("src", viewer.dataset.src);
       }
     });
+
+    showModelList();
 
     gallery.classList.add("is-open");
     gallery.setAttribute("aria-hidden", "false");
     document.body.classList.add("gallery-open");
   }
 
+  function openModelDetails(modelKey) {
+    const model = productModels[modelKey];
+    const viewer = document.getElementById("detailModelViewer");
+
+    document.getElementById("detailModelTitle").textContent =
+      model.title;
+
+    document.getElementById("detailModelDescription").textContent =
+      model.description;
+
+    document.getElementById("detailModelInformation").innerHTML =
+      model.details
+        .map(function (detail) {
+          return "<li>" + detail + "</li>";
+        })
+        .join("");
+
+    document.getElementById("modelListView").hidden = true;
+    document.getElementById("modelDetailView").hidden = false;
+
+    viewer.setAttribute("src", model.src);
+    viewer.setAttribute("alt", model.title);
+  }
+
+  function showModelList() {
+    const viewer = document.getElementById("detailModelViewer");
+
+    document.getElementById("modelListView").hidden = false;
+    document.getElementById("modelDetailView").hidden = true;
+
+    if (viewer) {
+      viewer.removeAttribute("src");
+    }
+  }
+
   function close3DGallery(event) {
     if (event && event.target !== event.currentTarget) return;
 
     const gallery = document.getElementById("productGallery");
+    const viewer = document.getElementById("detailModelViewer");
 
     gallery.classList.remove("is-open");
     gallery.setAttribute("aria-hidden", "true");
     document.body.classList.remove("gallery-open");
+
+    if (viewer) {
+      viewer.removeAttribute("src");
+    }
+
+    showModelList();
   }
 
   document.addEventListener("keydown", function (event) {
