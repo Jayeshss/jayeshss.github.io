@@ -60,8 +60,8 @@ $$('video').forEach(video => video.addEventListener('play', () => {
 
 // Original models, loaded only on the dedicated CGI page.
 const models = {
-  laser: {title:'iBELL Laser 120M', src:'assets/IBL%20Laser%20120M.glb', description:'A commercial product model combining hard-surface geometry with realistic materials and a detailed product presentation.', details:['Hard-surface 3D modelling','UV unwrapping and cleanup','PBR materials and texturing','Blender & Substance Painter']},
-  heat: {title:'Heat Gun', src:'assets/HEAT%20GUN.glb', description:'A power-tool visualization with accurate hard-surface modelling, detailed materials, and an interactive presentation.', details:['Detailed product modelling','UV mapping and optimization','Realistic PBR texturing','Blender & Substance Painter']}
+  laser: {title:'iBELL Laser 120M', src:'assets/models/IBL%20Laser%20120M.glb', description:'A commercial product model combining hard-surface geometry with realistic materials and a detailed product presentation.', details:['Hard-surface 3D modelling','UV unwrapping and cleanup','PBR materials and texturing','Blender & Substance Painter']},
+  heat: {title:'Heat Gun', src:'assets/models/HEAT%20GUN.glb', description:'A power-tool visualization with accurate hard-surface modelling, detailed materials, and an interactive presentation.', details:['Detailed product modelling','UV mapping and optimization','Realistic PBR texturing','Blender & Substance Painter']}
 };
 let modulePromise;
 let webGLAvailable;
@@ -99,7 +99,7 @@ async function renderModel(key) {
     return;
   }
   try {
-    if (!modulePromise) modulePromise = import('./assets/model-viewer.min.js').catch(error => { modulePromise = null; throw error; });
+    if (!modulePromise) modulePromise = import('./03-Jayesh-Website-Upload/assets/model-viewer.min.js').catch(error => { modulePromise = null; throw error; });
     await modulePromise;
     if (request !== renderRequest) return;
     $('model-viewer').src = models[key].src;
