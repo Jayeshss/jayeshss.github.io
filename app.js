@@ -3,7 +3,7 @@ const $$ = (selector, parent = document) => [...parent.querySelectorAll(selector
 const email = '2119jayesh@gmail.com';
 $$('[data-year]').forEach(element => { element.textContent = new Date().getFullYear(); });
 
-// Navigation is shared across the seven real pages.
+// Navigation is shared across the portfolio pages.
 const menuToggle = $('.menu-toggle');
 const mobileNav = $('#mobile-nav');
 function closeMenu() {
@@ -30,7 +30,7 @@ $$('[data-filter]').forEach(button => button.addEventListener('click', () => {
   });
   $$('.work-card').forEach(card => { card.hidden = filter !== 'all' && card.dataset.category !== filter; });
   $('.work-grid').classList.toggle('filtered', filter !== 'all');
-  $('#filter-status').textContent = filter === 'all' ? 'Showing all four collections.' : 'Showing ' + button.textContent.trim() + ' collection.';
+  $('#filter-status').textContent = filter === 'all' ? 'Showing all ' + $$('.work-card').length + ' collections.' : 'Showing ' + button.textContent.trim() + ' collection.';
 }));
 
 $$('.service-list details').forEach(detail => detail.addEventListener('toggle', () => {
